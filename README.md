@@ -25,7 +25,8 @@ It should be hosted at http://localhost:5173. Check your terminal for the addres
 In a seperate working directory run:
 > npx @solid/community-server -c @css:config/file.json -f data/
 
-It should be hosted at http://localhost:3000. Check your terminal for address
-Alternatively get a pod at [solid community](https://solidcommunity.net/)
+It should be hosted at http://localhost:3000. Check your terminal for address.
+
+Alternatively you can get a pod at [solid community](https://solidcommunity.net/)
 
 Note: Both addresses are http not https. The application contains bugs that may result in odd behaviour.
