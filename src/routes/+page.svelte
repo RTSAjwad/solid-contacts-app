@@ -2,7 +2,7 @@
 	// Import the login function to attach to the login button
 	import { startLogin } from '$lib';
 	// Create a string to bind to the login input, giving it a default value that is in the box by default
-	let oidcIssuer: string = 'http://localhost:3000';
+	let oidcIssuer: string = 'https://solidcommunity.net';
 </script>
 
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
