@@ -1,4 +1,6 @@
 # solid-contacts-app
+"src/lib/index.ts" contains all the main application logic. "routes" contains the pages. "lib/components" contains web components.
+
 ## Running the contacts application
 This application needs the lts version of node in order to run.
 
@@ -24,5 +26,6 @@ In a seperate working directory run:
 > npx @solid/community-server -c @css:config/file.json -f data/
 
 It should be hosted at http://localhost:3000. Check your terminal for address
+Alternatively get a pod at [solid community](https://solidcommunity.net/)
 
 Note: Both addresses are http not https. The application contains bugs that may result in odd behaviour.
