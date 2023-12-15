@@ -1,7 +1,15 @@
 # solid-contacts-app
-"src/lib/index.ts" contains all the main application logic. "routes" contains the pages. "lib/components" contains web components.
+## Notes for marker
+- "src/lib/index.ts" contains all the main application logic.
+- "routes" contains the pages.
+- "lib/components" contains web components.
 
-## Running the contacts application
+- Make sure to use http and https correctly when logging in. The application contains bugs that may result in odd behaviour.
+
+## Accessing the deployed application
+The application is hosted on vercel [here](https://solid-contacts-app.vercel.app/)
+
+## Self hosting application
 This application needs the lts version of node in order to run.
 
 Download node version manager using:
@@ -21,12 +29,11 @@ Run app in dev mode:
 
 It should be hosted at http://localhost:5173. Check your terminal for the address
 
-## Self hosting a pod
+## Public pod provider
+you can get a pod at [solid community](https://solidcommunity.net/).
+
+## Self hosting pod
 In a seperate working directory run:
 > npx @solid/community-server -c @css:config/file.json -f data/
 
 It should be hosted at http://localhost:3000. Check your terminal for address.
-
-Alternatively you can get a pod at [solid community](https://solidcommunity.net/). Make sure to use https instead of http in the input field on login if you want to go this route.
-
-Note: Both addresses are http not https. The application contains bugs that may result in odd behaviour.
