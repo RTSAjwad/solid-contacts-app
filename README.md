@@ -27,6 +27,6 @@ In a seperate working directory run:
 
 It should be hosted at http://localhost:3000. Check your terminal for address.
 
-Alternatively you can get a pod at [solid community](https://solidcommunity.net/)
+Alternatively you can get a pod at [solid community](https://solidcommunity.net/). Make sure to use https instead of http in the input field on login if you want to go this route.
 
 Note: Both addresses are http not https. The application contains bugs that may result in odd behaviour.
