@@ -15,3 +15,5 @@ Install dependencies:
 
 Run app in dev mode:
 > npm run dev
+
+It should be hosted at http://localhost:5173. Check your terminal for the address
