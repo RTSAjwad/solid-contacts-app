@@ -4,7 +4,6 @@
 	// Create a string to bind to the login input, giving it a default value that is in the box by default
 	let oidcIssuer: string = 'https://solidcommunity.net';
 </script>
-
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 	<div class="sm:mx-auto sm:w-full sm:max-w-sm">
 		<img

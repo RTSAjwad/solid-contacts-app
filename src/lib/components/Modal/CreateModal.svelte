@@ -4,16 +4,15 @@
     let modal: HTMLDialogElement;
     let contactToCreate = returnEmptyContact()
 
-    function createContact() {
+    async function createContact() {
         //validate
         let valid = true;
         if (contactToCreate.name == "" || contactToCreate.name == null) {
             valid = false;
-
         }
         //if not accepted then show error and not close modal
         //if accepted then create contact and close modal
-		createContactInPod(contactToCreate);
+		await createContactInPod(contactToCreate);
 		contactToCreate = returnEmptyContact();
 	}
 </script>

@@ -8,10 +8,10 @@
 	let modal: HTMLDialogElement;
 	let newContactDetailsForEdit = returnEmptyContact();
 
-	function editSelected() {
+	async function editSelected() {
 		let keys = Object.keys(get(selectedDataIds));
 		if (keys.length == 1) {
-			editContactInPod(Number(keys[0]), newContactDetailsForEdit)
+			await editContactInPod(Number(keys[0]), newContactDetailsForEdit)
 			//$contacts[keys[0]] = newContactDetailsForEdit;
 		}
 	}

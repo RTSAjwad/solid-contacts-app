@@ -109,23 +109,23 @@ async function completeLogin() {
 	const handler = await handleIncomingRedirect({ restorePreviousSession: true });
 	// If the user is not logged in then go back to the main page
 	// Important for when app route is accessed directly without logging in
-	if (handler?.isLoggedIn == false) {
+	if (handler == undefined || handler.isLoggedIn == false) {
 		window.location.href = '/';
 	}
 	// Figure out where the users pod is stored
-	const res = await getPodUrl();
+	const podUrl = await getPodUrl();
 	// If there is no pod then go back to the main page
-	if (res == null) {
+	if (podUrl == null) {
 		window.location.href = '/';
 	}
 	// Otherwise save the pod contacts path for easy usage
 	else {
-		contactsUrl = res + 'vCardContacts/example.ttl'
+		contactsUrl = podUrl + 'vCardContacts/example.ttl'
 	}
 	// Establish that pod contacts path exists, if not then make it
-	establishContactsUrl()
+	await establishContactsUrl()
 	// Fetch the contacts from the pod to update the table
-	refreshContactsState()
+	await refreshContactsState()
 }
 
 async function startLogout() {
@@ -145,7 +145,7 @@ async function establishContactsUrl() {
 	}
 	// If path doesn't exist, create it
 	catch {
-		saveSolidDatasetAt(
+		await saveSolidDatasetAt(
 			contactsUrl,
 			createSolidDataset(),
 			{ fetch: fetch }
@@ -155,10 +155,16 @@ async function establishContactsUrl() {
 
 // This function fetches the contacts from the pod to update the table
 async function refreshContactsState() {
-	updateContactsState(await getSolidDataset(
-		contactsUrl,
-		{ fetch: fetch } // fetch function from authenticated session
-	))
+	try {
+		const refreshedDataset = await getSolidDataset(
+			contactsUrl,
+			{ fetch: fetch } // fetch function from authenticated session
+		)
+		await updateContactsState(refreshedDataset)
+	}
+	catch(err) {
+		console.log(err)
+	}
 }
 
 // This function takes a dataset to update the table with
@@ -197,13 +203,18 @@ async function createContactInPod(contact: Contact) {
 	myDataset = setThing(myDataset, contactThing);
 	// Save the contact 'Thing' into the pod
 	// Return value is saved as it is an updated local dataset
-	const savedSolidDataset = await saveSolidDatasetAt(
-		contactsUrl,
-		myDataset,
-		{ fetch: fetch }
-	);
-	// Update the local contacts array with updated dataset
-	updateContactsState(savedSolidDataset);
+	try {
+		myDataset = await saveSolidDatasetAt(
+			contactsUrl,
+			myDataset,
+			{ fetch: fetch }
+		);
+		// Update the local contacts array with updated dataset
+		await updateContactsState(myDataset);
+	}
+	catch(err) {
+		console.log(err)
+	}
 }
 
 // This function edits a contact in the pod
@@ -221,30 +232,40 @@ async function editContactInPod(key: number, contact: Contact) {
 	myDataset = setThing(myDataset, contactThing);
 	// Save the contact 'Thing' into the pod
 	// Return value is saved as it is an updated local dataset
-	const savedSolidDataset = await saveSolidDatasetAt(
-		contactsUrl,
-		myDataset,
-		{ fetch: fetch }
-	);
-	// Update the local contacts array with updated dataset
-	updateContactsState(savedSolidDataset)
+	try {
+		myDataset = await saveSolidDatasetAt(
+			contactsUrl,
+			myDataset,
+			{ fetch: fetch }
+		);
+		// Update the local contacts array with updated dataset
+		await updateContactsState(myDataset);
+	}
+	catch(err) {
+		console.log(err)
+	}
 }
 
 // This function removes a contact from the pod usings its id
 async function removeContactsInPod(keys: string[]) {
 	// Remove the contact with the specified id from the local dataset
 	keys.forEach(key => {
-		myDataset = removeThing(myDataset, get(contacts)[Number(key)].id);
+		myDataset = removeThing(myDataset, get(contacts)[key as unknown as number].id);
 	})
 	// Remove the contact 'Thing' from the pod
 	// Return value is saved as it is an updated local dataset
-	const savedSolidDataset = await saveSolidDatasetAt(
-		contactsUrl,
-		myDataset,
-		{ fetch: fetch }
-	);
-	// Update the local contacts array with updated dataset
-	updateContactsState(savedSolidDataset)
+	try {
+		myDataset = await saveSolidDatasetAt(
+			contactsUrl,
+			myDataset,
+			{ fetch: fetch }
+		);
+		// Update the local contacts array with updated dataset
+		await updateContactsState(myDataset);
+	}
+	catch(err) {
+		console.log(err)
+	}
 }
 
 // Allows functions/types in this file become accessible in other files if needed

@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { get } from 'svelte/store';
 	import type { Writable, Readable } from 'svelte/store';
-	import { removeContactsInPod } from '$lib';
+	import { removeContactsInPod, contacts } from '$lib';
 
 	export let selectedDataIds: Writable<Record<string, boolean>>;
 	export let someRowsSelected: Readable<boolean>;
 	let modal: HTMLDialogElement;
-	function removeSelected() {
-		removeContactsInPod(Object.keys(get(selectedDataIds)).reverse());
+	async function removeSelected() {
+		await removeContactsInPod(Object.keys($selectedDataIds).reverse());
 		selectedDataIds.set({});
 	}
 </script>
